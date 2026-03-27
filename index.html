@@ -246,6 +246,10 @@
       box-shadow: 0 10px 24px rgba(31, 36, 48, 0.16);
     }
 
+    .mobile-only {
+      display: none;
+    }
+
     .content-grid {
       display: grid;
       grid-template-columns: 1.2fr 1fr;
@@ -368,8 +372,14 @@
         font-size: 15px;
       }
 
-      .close-btn {
+      .info-top .close-btn {
+        display: none;
+      }
+
+      .mobile-only {
+        display: block;
         width: 100%;
+        margin-top: 18px;
       }
 
       .cta-buttons {
@@ -380,26 +390,6 @@
         width: 100%;
       }
     }
-
-    .mobile-only {
-  display: none;
-}
-
-@media (max-width: 768px) {
-  .info-top .close-btn {
-    display: none;
-  }
-
-  .mobile-only {
-    display: block;
-    width: 100%;
-    margin-top: 16px;
-  }
-}
-
-        
-
-    
   </style>
 </head>
 <body>
@@ -419,24 +409,24 @@
 
     <div class="viewer-wrap">
       <model-viewer
-  id="productViewer"
-  src="model.glb"
-  ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
-  alt="Beauty product 3D model"
-  ar
-  ar-modes="webxr scene-viewer quick-look"
-  camera-controls
-  auto-rotate
-  auto-rotate-delay="0"
-  rotation-per-second="18deg"
-  shadow-intensity="1"
-  exposure="1.1"
-  environment-image="neutral"
-  camera-orbit="0deg 78deg 105%"
-  min-camera-orbit="auto auto 65%"
-  max-camera-orbit="auto auto 180%"
-  field-of-view="28deg">
-</model-viewer>
+        id="productViewer"
+        src="model.glb"
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        alt="Beauty product 3D model"
+        ar
+        ar-modes="webxr scene-viewer quick-look"
+        camera-controls
+        auto-rotate
+        auto-rotate-delay="0"
+        rotation-per-second="18deg"
+        shadow-intensity="1"
+        exposure="1.1"
+        environment-image="neutral"
+        camera-orbit="0deg 78deg 105%"
+        min-camera-orbit="auto auto 65%"
+        max-camera-orbit="auto auto 180%"
+        field-of-view="28deg">
+      </model-viewer>
     </div>
 
     <div class="hint">Потяните модель, чтобы повернуть</div>
@@ -460,7 +450,7 @@
             </p>
           </div>
 
-          <button id="closeInfoBtnMobile" class="close-btn mobile-only">Закрыть</button>
+          <button id="closeInfoBtn" class="close-btn">Закрыть</button>
         </div>
 
         <div class="content-grid">
@@ -503,6 +493,8 @@
             </div>
           </div>
         </div>
+
+        <button id="closeInfoBtnMobile" class="close-btn mobile-only">Закрыть</button>
       </div>
     </div>
 
@@ -513,6 +505,7 @@
     const resetViewBtn = document.getElementById('resetViewBtn');
     const infoBtn = document.getElementById('infoBtn');
     const closeInfoBtn = document.getElementById('closeInfoBtn');
+    const closeInfoBtnMobile = document.getElementById('closeInfoBtnMobile');
     const modalOverlay = document.getElementById('modalOverlay');
     const openArBtn = document.getElementById('openArBtn');
     const openArBtnModal = document.getElementById('openArBtnModal');
@@ -527,6 +520,10 @@
     });
 
     closeInfoBtn.addEventListener('click', () => {
+      modalOverlay.classList.remove('show');
+    });
+
+    closeInfoBtnMobile.addEventListener('click', () => {
       modalOverlay.classList.remove('show');
     });
 
