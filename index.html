@@ -399,21 +399,24 @@
 
     <div class="viewer-wrap">
       <model-viewer
-        id="productViewer"
-        src="model.glb"
-        alt="Beauty product 3D model"
-        camera-controls
-        auto-rotate
-        auto-rotate-delay="0"
-        rotation-per-second="18deg"
-        shadow-intensity="1"
-        exposure="1.1"
-        environment-image="neutral"
-        camera-orbit="0deg 78deg 105%"
-        min-camera-orbit="auto auto 65%"
-        max-camera-orbit="auto auto 180%"
-        field-of-view="28deg">
-      </model-viewer>
+  id="productViewer"
+  src="model.glb"
+  ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+  alt="Beauty product 3D model"
+  ar
+  ar-modes="webxr scene-viewer quick-look"
+  camera-controls
+  auto-rotate
+  auto-rotate-delay="0"
+  rotation-per-second="18deg"
+  shadow-intensity="1"
+  exposure="1.1"
+  environment-image="neutral"
+  camera-orbit="0deg 78deg 105%"
+  min-camera-orbit="auto auto 65%"
+  max-camera-orbit="auto auto 180%"
+  field-of-view="28deg">
+</model-viewer>
     </div>
 
     <div class="hint">Потяните модель, чтобы повернуть</div>
