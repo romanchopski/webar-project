@@ -380,6 +380,26 @@
         width: 100%;
       }
     }
+
+    .mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .info-top .close-btn {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+  }
+}
+
+        
+
+    
   </style>
 </head>
 <body>
@@ -440,7 +460,7 @@
             </p>
           </div>
 
-          <button id="closeInfoBtn" class="close-btn">Закрыть</button>
+          <button id="closeInfoBtnMobile" class="close-btn mobile-only">Закрыть</button>
         </div>
 
         <div class="content-grid">
