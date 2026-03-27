@@ -158,10 +158,10 @@
       right: 16px;
       top: 96px;
       z-index: 40;
-      width: min(360px, calc(100vw - 32px));
-      padding: 20px;
+      width: min(390px, calc(100vw - 32px));
+      padding: 22px;
       border-radius: 24px;
-      background: rgba(255, 255, 255, 0.82);
+      background: rgba(255, 255, 255, 0.86);
       backdrop-filter: blur(16px);
       border: 1px solid rgba(255, 255, 255, 0.95);
       box-shadow: 0 22px 48px rgba(45, 62, 95, 0.14);
@@ -172,32 +172,78 @@
       display: block;
     }
 
+    .product-label {
+      display: inline-block;
+      margin-bottom: 10px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: #eef2f8;
+      color: #5a6480;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
     .info-title {
-      margin: 0 0 10px 0;
-      font-size: 21px;
+      margin: 0 0 8px 0;
+      font-size: 22px;
       font-weight: 700;
       color: #1d2433;
+      line-height: 1.2;
     }
 
-    .info-text {
-      margin: 0 0 14px 0;
+    .info-subtitle {
+      margin: 0 0 16px 0;
       font-size: 14px;
-      line-height: 1.6;
-      color: #5c667a;
+      line-height: 1.55;
+      color: #657089;
     }
 
-    .info-list {
-      margin: 0 0 16px 18px;
-      padding: 0;
-      color: #364055;
+    .section-title {
+      margin: 0 0 10px 0;
+      font-size: 13px;
+      font-weight: 700;
+      color: #7a8399;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .benefit-list {
+      display: grid;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .benefit-item {
+      padding: 12px 14px;
+      border-radius: 16px;
+      background: rgba(245, 247, 251, 0.95);
+      color: #334055;
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.5;
+    }
+
+    .benefit-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: #1d2433;
+      font-size: 14px;
+    }
+
+    .audience-box {
+      margin-bottom: 18px;
+      padding: 14px 15px;
+      border-radius: 16px;
+      background: rgba(245, 247, 251, 0.95);
+      color: #4f5a70;
+      font-size: 14px;
+      line-height: 1.55;
     }
 
     .close-btn {
       border: none;
       border-radius: 999px;
-      padding: 10px 15px;
+      padding: 11px 16px;
       background: #1f2430;
       color: white;
       font-weight: 600;
@@ -278,17 +324,40 @@
     </div>
 
     <div id="infoCard" class="info-card">
-      <h2 class="info-title">О продукте</h2>
-      <p class="info-text">
-        Здесь можно разместить короткое описание линейки, ключевые свойства
-        и понятный рекламный текст для пользователя.
+      <div class="product-label">NEW FORMULA</div>
+
+      <h2 class="info-title">BeautyLab Radiance Complex</h2>
+
+      <p class="info-subtitle">
+        Интенсивный уход для визуально более ровного, свежего и сияющего тона кожи.
+        Подходит для цифровой презентации на стенде, в журнале и в промо-материалах.
       </p>
 
-      <ul class="info-list">
-        <li>Премиальная подача косметики в 3D</li>
-        <li>Просмотр упаковки со всех сторон</li>
-        <li>Подходит для QR в журнале, на стенде и листовке</li>
-      </ul>
+      <div class="section-title">Ключевые преимущества</div>
+
+      <div class="benefit-list">
+        <div class="benefit-item">
+          <strong>Увлажнение</strong>
+          Помогает поддерживать ощущение мягкости и комфорта кожи в течение дня.
+        </div>
+
+        <div class="benefit-item">
+          <strong>Сияние</strong>
+          Делает визуальную подачу продукта более премиальной и заметной для клиента.
+        </div>
+
+        <div class="benefit-item">
+          <strong>Презентация</strong>
+          Позволяет показать упаковку и линейку со всех сторон прямо на экране смартфона.
+        </div>
+      </div>
+
+      <div class="section-title">Для кого подходит</div>
+
+      <div class="audience-box">
+        Для брендовых презентаций, QR-активаций, печатной рекламы, промо-стоек и
+        интерактивных digital-материалов в сфере косметики и skincare.
+      </div>
 
       <button id="closeInfoBtn" class="close-btn">Закрыть</button>
     </div>
