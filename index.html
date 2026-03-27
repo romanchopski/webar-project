@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>AR Demo</title>
 
-  <!-- model-viewer -->
   <script type="module"
     src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js">
   </script>
@@ -23,7 +22,6 @@
       width: 100vw;
       height: 100vh;
       background: linear-gradient(to bottom, #1f1f1f, #0f0f0f);
-      position: relative;
     }
 
     .title {
@@ -37,17 +35,19 @@
       font-size: 16px;
     }
 
+    /* 🔥 КНОПКА ВСЕГДА В ЦЕНТРЕ СНИЗУ */
     .ar-button {
-      position: absolute;
-      right: 16px;
+      position: fixed;
+      left: 50%;
       bottom: 24px;
-      z-index: 20;
+      transform: translateX(-50%);
+      z-index: 1000;
 
       background: white;
       color: black;
       border: none;
       border-radius: 999px;
-      padding: 14px 20px;
+      padding: 14px 22px;
       font-size: 16px;
       cursor: pointer;
       box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
@@ -58,7 +58,7 @@
 <body>
 
   <div class="title">
-    Добро пожаловать в Demo-версию проекта AR
+    Demo AR проекта
   </div>
 
   <model-viewer
