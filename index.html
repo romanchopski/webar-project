@@ -35,8 +35,7 @@
       font-size: 16px;
     }
 
-    /* 🔥 КНОПКА ВСЕГДА В ЦЕНТРЕ СНИЗУ */
-    .ar-button {
+    .ar-button-fixed {
       position: fixed;
       left: 50%;
       bottom: 24px;
@@ -54,14 +53,12 @@
     }
   </style>
 </head>
-
 <body>
 
-  <div class="title">
-    Demo AR проекта
-  </div>
+  <div class="title">Demo AR проекта</div>
 
   <model-viewer
+    id="arModel"
     src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
     ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
     alt="3D model"
@@ -69,12 +66,25 @@
     ar-modes="webxr scene-viewer quick-look"
     auto-rotate
     camera-controls>
-
-    <button slot="ar-button" class="ar-button">
-      Открыть в AR
-    </button>
-
   </model-viewer>
+
+  <button id="openArBtn" class="ar-button-fixed">
+    Открыть в AR
+  </button>
+
+  <script>
+    const modelViewer = document.getElementById('arModel');
+    const openArBtn = document.getElementById('openArBtn');
+
+    openArBtn.addEventListener('click', async () => {
+      try {
+        await modelViewer.activateAR();
+      } catch (error) {
+        console.error('AR launch failed:', error);
+        alert('Не удалось открыть AR на этом устройстве или в этом режиме.');
+      }
+    });
+  </script>
 
 </body>
 </html>
