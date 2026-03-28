@@ -14,10 +14,28 @@
       box-sizing: border-box;
     }
 
+    :root {
+      --text-main: #1f2430;
+      --text-soft: #5c667a;
+      --glass: rgba(255, 255, 255, 0.76);
+      --glass-strong: rgba(255, 255, 255, 0.92);
+      --border-soft: rgba(255, 255, 255, 0.95);
+      --shadow-soft: 0 16px 40px rgba(45, 62, 95, 0.10);
+      --shadow-mid: 0 14px 30px rgba(45, 62, 95, 0.14);
+      --shadow-strong: 0 30px 60px rgba(45, 62, 95, 0.18);
+      --accent-dark: #1f2430;
+      --accent-blue: #2e4f95;
+      --accent-blue-soft: #dfe9ff;
+      --accent-gold: #e8d9a8;
+      --accent-gold-strong: #c9b06b;
+      --success-soft: #eef6ea;
+      --success-border: #dce9d5;
+    }
+
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      color: #1f2430;
+      color: var(--text-main);
       background:
         radial-gradient(circle at top center, #ffffff 0%, #f6f7fb 40%, #eef1f7 100%);
       overflow: hidden;
@@ -48,7 +66,7 @@
       border: 1px solid rgba(255, 255, 255, 0.9);
       border-radius: 22px;
       padding: 16px 18px;
-      box-shadow: 0 16px 40px rgba(45, 62, 95, 0.10);
+      box-shadow: var(--shadow-soft);
     }
 
     .brand-title {
@@ -62,7 +80,7 @@
       margin: 0;
       font-size: 14px;
       line-height: 1.5;
-      color: #5c667a;
+      color: var(--text-soft);
     }
 
     .badge {
@@ -111,6 +129,13 @@
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(45, 62, 95, 0.12);
       white-space: nowrap;
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    .hint.hide {
+      opacity: 0;
+      transform: translateX(-50%) translateY(8px);
+      pointer-events: none;
     }
 
     .bottom-panel {
@@ -134,7 +159,7 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease;
+      transition: transform 0.18s ease, opacity 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
       text-decoration: none;
       display: inline-flex;
       align-items: center;
@@ -146,13 +171,13 @@
     }
 
     .btn-primary {
-      background: #1f2430;
+      background: var(--accent-dark);
       color: white;
       box-shadow: 0 10px 24px rgba(31, 36, 48, 0.18);
     }
 
     .btn-secondary {
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255, 255, 255, 0.78);
       color: #2a3142;
       border: 1px solid rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
@@ -160,15 +185,27 @@
     }
 
     .btn-outline {
-      background: rgba(255, 255, 255, 0.55);
+      background: rgba(255, 255, 255, 0.60);
       color: #2a3142;
       border: 1px solid rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(45, 62, 95, 0.06);
     }
 
+    .btn-reward {
+      background: linear-gradient(135deg, #1f2430 0%, #355aa8 55%, #b8a46a 100%);
+      color: white;
+      box-shadow: 0 16px 34px rgba(46, 79, 149, 0.24);
+    }
+
+    .btn-gold {
+      background: linear-gradient(135deg, #f4ebc8 0%, #e2d29c 100%);
+      color: #3f3621;
+      box-shadow: 0 14px 28px rgba(201, 176, 107, 0.28);
+    }
+
     .btn[disabled] {
-      opacity: 0.5;
+      opacity: 0.52;
       cursor: default;
       transform: none;
     }
@@ -189,16 +226,17 @@
       display: flex;
     }
 
-    .info-card {
+    .info-card,
+    .coupon-card {
       width: min(920px, 92vw);
       max-height: min(82vh, 900px);
       overflow-y: auto;
       padding: 28px;
       border-radius: 28px;
-      background: rgba(255, 255, 255, 0.92);
+      background: rgba(255, 255, 255, 0.94);
       backdrop-filter: blur(18px);
       border: 1px solid rgba(255, 255, 255, 0.98);
-      box-shadow: 0 30px 60px rgba(45, 62, 95, 0.18);
+      box-shadow: var(--shadow-strong);
     }
 
     .info-top {
@@ -226,7 +264,8 @@
       letter-spacing: 0.02em;
     }
 
-    .info-title {
+    .info-title,
+    .coupon-title {
       margin: 0 0 8px 0;
       font-size: 34px;
       font-weight: 700;
@@ -234,7 +273,8 @@
       line-height: 1.15;
     }
 
-    .info-subtitle {
+    .info-subtitle,
+    .coupon-subtitle {
       margin: 0;
       font-size: 16px;
       line-height: 1.65;
@@ -284,7 +324,9 @@
 
     .benefit-item,
     .audience-box,
-    .cta-box {
+    .cta-box,
+    .coupon-code-box,
+    .coupon-note {
       padding: 14px 16px;
       border-radius: 18px;
       background: rgba(245, 247, 251, 0.95);
@@ -306,21 +348,363 @@
       gap: 12px;
     }
 
-    .cta-buttons {
+    .cta-buttons,
+    .coupon-actions {
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       margin-top: 4px;
     }
 
+    .coupon-card {
+      max-width: 700px;
+      text-align: center;
+      background:
+        radial-gradient(circle at top center, rgba(255,255,255,0.98) 0%, rgba(246,248,253,0.97) 52%, rgba(235,240,249,0.95) 100%);
+    }
+
+    .coupon-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #eef2ff 0%, #fff8e0 100%);
+      color: #596784;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      margin-bottom: 14px;
+    }
+
+    .coupon-code-box {
+      margin-top: 18px;
+      background: linear-gradient(135deg, #f8fbff 0%, #fffdf5 100%);
+      border: 1px solid #e7edf7;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
+    }
+
+    .coupon-code {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 12px 18px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #edf3ff 0%, #fff5d8 100%);
+      color: #23314c;
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      border: 1px solid #e4e9f3;
+    }
+
+    .coupon-note {
+      margin-top: 14px;
+      background: var(--success-soft);
+      border: 1px solid var(--success-border);
+      color: #4c6452;
+    }
+
+    .experience-layer {
+      position: absolute;
+      inset: 0;
+      z-index: 26;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .experience-layer.show {
+      pointer-events: none;
+    }
+
+    .game-top-ui {
+      position: absolute;
+      top: 110px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .game-pill,
+    .game-counter {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(14px);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 999px;
+      box-shadow: 0 14px 28px rgba(45, 62, 95, 0.12);
+      color: #4a566f;
+    }
+
+    .game-pill {
+      padding: 11px 16px;
+      font-size: 13px;
+      max-width: min(90vw, 520px);
+      text-align: center;
+      line-height: 1.35;
+    }
+
+    .game-counter {
+      padding: 8px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .component-dot {
+      position: absolute;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      pointer-events: auto;
+      cursor: pointer;
+      user-select: none;
+      transform: translate(-50%, -50%) scale(1);
+      transition: transform 0.18s ease, opacity 0.24s ease, box-shadow 0.22s ease;
+      background:
+        radial-gradient(circle at 32% 30%, rgba(255,255,255,0.98) 0%, rgba(242,247,255,0.94) 24%, rgba(214,228,255,0.92) 46%, rgba(191,211,247,0.88) 72%, rgba(217,199,142,0.82) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.92);
+      box-shadow:
+        0 0 0 10px rgba(255,255,255,0.08),
+        0 18px 34px rgba(62, 91, 151, 0.18),
+        0 0 30px rgba(170, 194, 255, 0.55);
+      animation: dotFloat 2.4s ease-in-out infinite;
+    }
+
+    .component-dot:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+      box-shadow:
+        0 0 0 12px rgba(255,255,255,0.10),
+        0 20px 40px rgba(62, 91, 151, 0.22),
+        0 0 38px rgba(196, 213, 255, 0.68);
+    }
+
+    .component-dot.collected {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .component-inner {
+      position: absolute;
+      inset: 8px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8px;
+      font-size: 10px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: #2d3b58;
+      background: radial-gradient(circle at center, rgba(255,255,255,0.88) 0%, rgba(241,246,255,0.78) 60%, rgba(255,255,255,0.45) 100%);
+      box-shadow: inset 0 1px 1px rgba(255,255,255,0.9);
+    }
+
+    .component-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.38);
+      animation: ringPulse 2.2s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    .flying-dot {
+      position: absolute;
+      width: 74px;
+      height: 74px;
+      border-radius: 50%;
+      z-index: 5;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,0.98) 0%, rgba(242,247,255,0.94) 24%, rgba(214,228,255,0.92) 46%, rgba(191,211,247,0.88) 72%, rgba(217,199,142,0.82) 100%);
+      border: 1px solid rgba(255,255,255,0.92);
+      box-shadow:
+        0 18px 34px rgba(62, 91, 151, 0.18),
+        0 0 30px rgba(170, 194, 255, 0.55);
+    }
+
+    .product-core {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 160px;
+      height: 160px;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 3;
+      background:
+        radial-gradient(circle at center, rgba(255,255,255,0.75) 0%, rgba(197,214,255,0.38) 34%, rgba(73,112,197,0.16) 60%, rgba(232,217,168,0.10) 100%);
+      filter: blur(2px);
+    }
+
+    .product-core.show {
+      opacity: 1;
+    }
+
+    .product-core.pulse {
+      animation: productPulse 0.8s ease;
+    }
+
+    .activation-burst {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 220px;
+      height: 220px;
+      transform: translate(-50%, -50%) scale(0.55);
+      border-radius: 50%;
+      pointer-events: none;
+      opacity: 0;
+      z-index: 3;
+      background:
+        radial-gradient(circle at center,
+          rgba(255,255,255,0.96) 0%,
+          rgba(236,242,255,0.88) 18%,
+          rgba(184,205,255,0.48) 40%,
+          rgba(213,190,128,0.26) 62%,
+          rgba(255,255,255,0) 76%);
+      box-shadow:
+        0 0 60px rgba(182, 204, 255, 0.42),
+        0 0 110px rgba(210, 188, 124, 0.22);
+    }
+
+    .activation-burst.show {
+      animation: activationBurst 1.3s ease forwards;
+    }
+
+    .activation-text {
+      position: absolute;
+      left: 50%;
+      top: calc(50% + 116px);
+      transform: translateX(-50%);
+      z-index: 4;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.90);
+      border: 1px solid rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      color: #42506a;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      box-shadow: 0 14px 30px rgba(45, 62, 95, 0.14);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .activation-text.show {
+      animation: fadeLiftIn 0.35s ease forwards;
+    }
+
+    .viewer-glow {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
+      opacity: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at center, rgba(214,226,255,0.16) 0%, rgba(255,255,255,0.08) 32%, rgba(255,255,255,0) 64%);
+    }
+
+    .viewer-glow.show {
+      animation: screenGlow 1.4s ease;
+    }
+
+    @keyframes dotFloat {
+      0%, 100% {
+        transform: translate(-50%, -50%) translateY(0px);
+      }
+      50% {
+        transform: translate(-50%, -50%) translateY(-8px);
+      }
+    }
+
+    @keyframes ringPulse {
+      0%, 100% {
+        transform: scale(0.92);
+        opacity: 0.55;
+      }
+      50% {
+        transform: scale(1.08);
+        opacity: 0.9;
+      }
+    }
+
+    @keyframes productPulse {
+      0% {
+        transform: translate(-50%, -50%) scale(0.78);
+        opacity: 0.22;
+      }
+      50% {
+        transform: translate(-50%, -50%) scale(1.16);
+        opacity: 0.9;
+      }
+      100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.62;
+      }
+    }
+
+    @keyframes activationBurst {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.55);
+      }
+      18% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(0.95);
+      }
+      60% {
+        opacity: 0.92;
+        transform: translate(-50%, -50%) scale(1.16);
+      }
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(1.34);
+      }
+    }
+
+    @keyframes fadeLiftIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    @keyframes screenGlow {
+      0% {
+        opacity: 0;
+      }
+      25% {
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+      }
+    }
+
     @media (max-width: 900px) {
-      .info-card {
+      .info-card,
+      .coupon-card {
         width: min(96vw, 96vw);
         max-height: 84vh;
         padding: 22px;
       }
 
-      .info-title {
+      .info-title,
+      .coupon-title {
         font-size: 28px;
       }
 
@@ -372,7 +756,8 @@
         align-items: center;
       }
 
-      .info-card {
+      .info-card,
+      .coupon-card {
         width: 100%;
         max-height: 82vh;
         padding: 18px;
@@ -384,11 +769,13 @@
         align-items: stretch;
       }
 
-      .info-title {
+      .info-title,
+      .coupon-title {
         font-size: 24px;
       }
 
-      .info-subtitle {
+      .info-subtitle,
+      .coupon-subtitle {
         font-size: 15px;
       }
 
@@ -402,12 +789,49 @@
         margin-top: 18px;
       }
 
-      .cta-buttons {
+      .cta-buttons,
+      .coupon-actions {
         flex-direction: column;
       }
 
-      .cta-buttons .btn {
+      .cta-buttons .btn,
+      .coupon-actions .btn {
         width: 100%;
+      }
+
+      .game-top-ui {
+        top: 102px;
+        width: calc(100% - 28px);
+      }
+
+      .game-pill {
+        max-width: 100%;
+        font-size: 12px;
+      }
+
+      .component-dot,
+      .flying-dot {
+        width: 66px;
+        height: 66px;
+      }
+
+      .component-inner {
+        font-size: 9px;
+      }
+
+      .product-core {
+        width: 138px;
+        height: 138px;
+      }
+
+      .activation-burst {
+        width: 190px;
+        height: 190px;
+      }
+
+      .activation-text {
+        top: calc(50% + 98px);
+        font-size: 12px;
       }
     }
   </style>
@@ -449,13 +873,25 @@
       </model-viewer>
     </div>
 
-    <div class="hint">Потяните модель, чтобы повернуть</div>
+    <div id="defaultHint" class="hint">Потяните модель, чтобы повернуть</div>
+
+    <div id="experienceLayer" class="experience-layer">
+      <div id="viewerGlow" class="viewer-glow"></div>
+      <div id="productCore" class="product-core"></div>
+      <div id="activationBurst" class="activation-burst"></div>
+      <div id="activationText" class="activation-text">Формула активирована</div>
+
+      <div class="game-top-ui">
+        <div id="gameHint" class="game-pill" style="display:none;">Нажмите на 3 активных компонента, чтобы активировать формулу и получить скидку</div>
+        <div id="gameCounter" class="game-counter" style="display:none;">0 / 3 собрано</div>
+      </div>
+    </div>
 
     <div class="bottom-panel">
       <button id="resetViewBtn" class="btn btn-primary">Сбросить вид</button>
       <button id="infoBtn" class="btn btn-secondary">Подробнее</button>
       <a href="https://www.chopskilab.com/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Перейти на сайт</a>
-      <button id="openArBtn" class="btn btn-outline">Открыть AR</button>
+      <button id="rewardBtn" class="btn btn-reward">Получить скидку</button>
     </div>
 
     <div id="modalOverlay" class="modal-overlay">
@@ -502,19 +938,45 @@
               интерактивных digital-материалов в сфере косметики и skincare.
             </div>
 
-            <div class="section-title" style="margin-top:16px;">Действие</div>
+            <div class="section-title" style="margin-top:16px;">Интерактив</div>
             <div class="cta-box">
-              Откройте официальный сайт бренда или включите режим AR, чтобы посмотреть продукт в пространстве.
+              Запустите мини-опыт, соберите активные компоненты и получите промокод на скидку.
 
               <div class="cta-buttons">
-                <a href="https://www.chopskilab.com/" target="_blank" rel="noopener noreferrer" class="btn btn-primary">Перейти на сайт</a>
-                <button id="openArBtnModal" class="btn btn-secondary">Открыть AR</button>
+                <button id="startExperienceFromModal" class="btn btn-gold">Получить скидку</button>
+                <a href="https://www.chopskilab.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">Перейти на сайт</a>
               </div>
             </div>
           </div>
         </div>
 
         <button id="closeInfoBtnMobile" class="close-btn mobile-only">Закрыть</button>
+      </div>
+    </div>
+
+    <div id="couponOverlay" class="modal-overlay">
+      <div class="coupon-card">
+        <div class="coupon-badge">SKINCARE REWARD</div>
+        <h2 class="coupon-title">Формула активирована</h2>
+        <p class="coupon-subtitle">
+          Вы собрали активные компоненты и открыли персональную награду.
+          Используйте промокод при оформлении заказа или в промо-активации бренда.
+        </p>
+
+        <div class="coupon-code-box">
+          Ваша скидка:
+          <div class="coupon-code">BEAUTY10</div>
+        </div>
+
+        <div class="coupon-note">
+          Промокод можно заменить на QR, одноразовый купон, ссылку на лендинг или подарок за участие.
+        </div>
+
+        <div class="coupon-actions" style="justify-content:center; margin-top:18px;">
+          <button id="openArAfterRewardBtn" class="btn btn-primary">Посмотреть в пространстве</button>
+          <button id="restartExperienceBtn" class="btn btn-secondary">Сыграть ещё раз</button>
+          <button id="closeCouponBtn" class="btn btn-outline">Закрыть</button>
+        </div>
       </div>
     </div>
 
@@ -527,11 +989,41 @@
     const closeInfoBtn = document.getElementById('closeInfoBtn');
     const closeInfoBtnMobile = document.getElementById('closeInfoBtnMobile');
     const modalOverlay = document.getElementById('modalOverlay');
-    const openArBtn = document.getElementById('openArBtn');
-    const openArBtnModal = document.getElementById('openArBtnModal');
+    const rewardBtn = document.getElementById('rewardBtn');
+    const startExperienceFromModal = document.getElementById('startExperienceFromModal');
+
+    const couponOverlay = document.getElementById('couponOverlay');
+    const closeCouponBtn = document.getElementById('closeCouponBtn');
+    const restartExperienceBtn = document.getElementById('restartExperienceBtn');
+    const openArAfterRewardBtn = document.getElementById('openArAfterRewardBtn');
+
+    const defaultHint = document.getElementById('defaultHint');
+    const experienceLayer = document.getElementById('experienceLayer');
+    const gameHint = document.getElementById('gameHint');
+    const gameCounter = document.getElementById('gameCounter');
+    const productCore = document.getElementById('productCore');
+    const activationBurst = document.getElementById('activationBurst');
+    const activationText = document.getElementById('activationText');
+    const viewerGlow = document.getElementById('viewerGlow');
 
     const DEFAULT_CAMERA_ORBIT = '0deg 78deg 105%';
     const DEFAULT_FOV = '28deg';
+
+    const componentConfigsDesktop = [
+      { x: 30, y: 47, label: 'Glow\nComplex' },
+      { x: 72, y: 55, label: 'Active\nMoisture' },
+      { x: 52, y: 27, label: 'Skin\nRadiance' }
+    ];
+
+    const componentConfigsMobile = [
+      { x: 24, y: 50, label: 'Glow\nComplex' },
+      { x: 76, y: 56, label: 'Active\nMoisture' },
+      { x: 52, y: 30, label: 'Skin\nRadiance' }
+    ];
+
+    let collectedCount = 0;
+    let experienceRunning = false;
+    let experienceCompleted = false;
 
     function resetView() {
       viewer.cameraOrbit = DEFAULT_CAMERA_ORBIT;
@@ -545,31 +1037,217 @@
       modalOverlay.classList.add('show');
     });
 
-    function closeModal() {
+    function closeInfoModal() {
       modalOverlay.classList.remove('show');
     }
 
-    closeInfoBtn.addEventListener('click', closeModal);
-    closeInfoBtnMobile.addEventListener('click', closeModal);
+    closeInfoBtn.addEventListener('click', closeInfoModal);
+    closeInfoBtnMobile.addEventListener('click', closeInfoModal);
 
     modalOverlay.addEventListener('click', (event) => {
       if (event.target === modalOverlay) {
-        closeModal();
+        closeInfoModal();
       }
     });
+
+    couponOverlay.addEventListener('click', (event) => {
+      if (event.target === couponOverlay) {
+        closeCoupon();
+      }
+    });
+
+    function closeCoupon() {
+      couponOverlay.classList.remove('show');
+    }
+
+    closeCouponBtn.addEventListener('click', closeCoupon);
 
     viewer.addEventListener('pointerdown', () => {
       viewer.autoRotate = false;
     });
 
+    function setDefaultHintVisible(isVisible) {
+      defaultHint.classList.toggle('hide', !isVisible);
+    }
+
+    function clearGameDots() {
+      const dots = experienceLayer.querySelectorAll('.component-dot, .flying-dot');
+      dots.forEach(dot => dot.remove());
+    }
+
+    function resetActivationVisuals() {
+      productCore.classList.remove('show', 'pulse');
+      activationBurst.classList.remove('show');
+      activationText.classList.remove('show');
+      viewerGlow.classList.remove('show');
+    }
+
+    function updateCounter() {
+      gameCounter.textContent = `${collectedCount} / 3 собрано`;
+    }
+
+    function getComponentConfigs() {
+      return window.innerWidth <= 768 ? componentConfigsMobile : componentConfigsDesktop;
+    }
+
+    function createDot(config, index) {
+      const dot = document.createElement('button');
+      dot.type = 'button';
+      dot.className = 'component-dot';
+      dot.style.left = `${config.x}%`;
+      dot.style.top = `${config.y}%`;
+      dot.style.animationDelay = `${index * 0.18}s`;
+      dot.innerHTML = `
+        <div class="component-ring"></div>
+        <div class="component-inner">${config.label.replace('\n', '<br>')}</div>
+      `;
+
+      dot.addEventListener('click', () => collectDot(dot));
+      return dot;
+    }
+
+    function renderGameDots() {
+      clearGameDots();
+      const configs = getComponentConfigs();
+      configs.forEach((config, index) => {
+        experienceLayer.appendChild(createDot(config, index));
+      });
+    }
+
+    function startExperience() {
+      closeInfoModal();
+      closeCoupon();
+
+      experienceRunning = true;
+      experienceCompleted = false;
+      collectedCount = 0;
+
+      rewardBtn.disabled = true;
+      resetActivationVisuals();
+      clearGameDots();
+
+      setDefaultHintVisible(false);
+
+      gameHint.style.display = 'block';
+      gameCounter.style.display = 'block';
+      gameHint.textContent = 'Нажмите на 3 активных компонента, чтобы активировать формулу и получить скидку';
+      updateCounter();
+
+      viewer.autoRotate = false;
+      productCore.classList.add('show');
+      experienceLayer.classList.add('show');
+
+      renderGameDots();
+    }
+
+    rewardBtn.addEventListener('click', startExperience);
+    startExperienceFromModal.addEventListener('click', startExperience);
+
+    function getProductCenterInLayer() {
+      const layerRect = experienceLayer.getBoundingClientRect();
+      const viewerRect = viewer.getBoundingClientRect();
+
+      const x = (viewerRect.left - layerRect.left) + viewerRect.width / 2;
+      const y = (viewerRect.top - layerRect.top) + viewerRect.height / 2;
+
+      return { x, y };
+    }
+
+    function collectDot(dot) {
+      if (!experienceRunning || dot.classList.contains('collected')) return;
+
+      dot.classList.add('collected');
+
+      const dotRect = dot.getBoundingClientRect();
+      const layerRect = experienceLayer.getBoundingClientRect();
+      const center = getProductCenterInLayer();
+
+      const flying = document.createElement('div');
+      flying.className = 'flying-dot';
+      flying.style.left = `${dotRect.left - layerRect.left + dotRect.width / 2}px`;
+      flying.style.top = `${dotRect.top - layerRect.top + dotRect.height / 2}px`;
+      flying.style.transform = 'translate(-50%, -50%) scale(1)';
+      flying.style.transition = 'transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.65s ease, filter 0.65s ease';
+      experienceLayer.appendChild(flying);
+
+      requestAnimationFrame(() => {
+        const dx = center.x - (dotRect.left - layerRect.left + dotRect.width / 2);
+        const dy = center.y - (dotRect.top - layerRect.top + dotRect.height / 2);
+        flying.style.transform = `translate(-50%, -50%) translate(${dx}px, ${dy}px) scale(0.22)`;
+        flying.style.opacity = '0.16';
+        flying.style.filter = 'blur(1px)';
+      });
+
+      flying.addEventListener('transitionend', () => {
+        flying.remove();
+      }, { once: true });
+
+      collectedCount += 1;
+      updateCounter();
+
+      productCore.classList.remove('pulse');
+      void productCore.offsetWidth;
+      productCore.classList.add('pulse');
+
+      if (collectedCount < 3) {
+        gameHint.textContent = 'Ещё немного — соберите все компоненты';
+      }
+
+      if (collectedCount === 3) {
+        finishExperience();
+      }
+    }
+
+    function finishExperience() {
+      experienceRunning = false;
+      experienceCompleted = true;
+      clearGameDots();
+
+      gameHint.textContent = 'Формула активируется...';
+      viewerGlow.classList.remove('show');
+      activationBurst.classList.remove('show');
+      activationText.classList.remove('show');
+
+      void viewerGlow.offsetWidth;
+      void activationBurst.offsetWidth;
+      void activationText.offsetWidth;
+
+      viewerGlow.classList.add('show');
+      activationBurst.classList.add('show');
+
+      setTimeout(() => {
+        activationText.classList.add('show');
+      }, 180);
+
+      setTimeout(() => {
+        gameHint.textContent = 'Награда готова';
+      }, 500);
+
+      setTimeout(() => {
+        showCoupon();
+      }, 1500);
+    }
+
+    function showCoupon() {
+      rewardBtn.disabled = false;
+      couponOverlay.classList.add('show');
+      gameHint.style.display = 'none';
+      gameCounter.style.display = 'none';
+      setDefaultHintVisible(true);
+      resetActivationVisuals();
+    }
+
+    restartExperienceBtn.addEventListener('click', () => {
+      closeCoupon();
+      startExperience();
+    });
+
     async function updateArButtonState() {
       try {
         const canActivateAR = await viewer.canActivateAR;
-        openArBtn.disabled = !canActivateAR;
-        openArBtnModal.disabled = !canActivateAR;
+        openArAfterRewardBtn.disabled = !canActivateAR;
       } catch (error) {
-        openArBtn.disabled = false;
-        openArBtnModal.disabled = false;
+        openArAfterRewardBtn.disabled = false;
       }
     }
 
@@ -577,16 +1255,21 @@
       try {
         await viewer.activateAR();
       } catch (error) {
-        alert('Не удалось открыть AR на этом устройстве или в этом браузере.');
+        alert('Не удалось открыть просмотр в пространстве на этом устройстве или в этом браузере.');
         console.error(error);
       }
     }
 
-    openArBtn.addEventListener('click', openAR);
-    openArBtnModal.addEventListener('click', openAR);
+    openArAfterRewardBtn.addEventListener('click', openAR);
 
     viewer.addEventListener('load', updateArButtonState);
     window.addEventListener('DOMContentLoaded', updateArButtonState);
+
+    window.addEventListener('resize', () => {
+      if (experienceRunning) {
+        renderGameDots();
+      }
+    });
   </script>
 </body>
 </html>
