@@ -93,6 +93,7 @@
       height: min(78vh, 900px);
       background: transparent;
       --poster-color: transparent;
+      touch-action: pan-y;
     }
 
     .hint {
@@ -164,6 +165,12 @@
       border: 1px solid rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(45, 62, 95, 0.06);
+    }
+
+    .btn[disabled] {
+      opacity: 0.5;
+      cursor: default;
+      transform: none;
     }
 
     .modal-overlay {
@@ -242,14 +249,11 @@
       font-size: 15px;
       font-weight: 600;
       cursor: pointer;
-
       background: rgba(255, 255, 255, 0.450);
       color: #2a3142;
       border: 1px solid rgba(255, 255, 255, 0.95);
-
       backdrop-filter: blur(12px);
       box-shadow: 0 10px 24px rgba(45, 62, 95, 0.08);
-
       width: 100%;
     }
 
@@ -427,7 +431,6 @@
       <model-viewer
         id="productViewer"
         src="model.glb"
-        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
         alt="Beauty product 3D model"
         ar
         ar-modes="webxr scene-viewer quick-look"
@@ -441,7 +444,8 @@
         camera-orbit="0deg 78deg 105%"
         min-camera-orbit="auto auto 65%"
         max-camera-orbit="auto auto 180%"
-        field-of-view="28deg">
+        field-of-view="28deg"
+        interaction-prompt="none">
       </model-viewer>
     </div>
 
@@ -526,40 +530,63 @@
     const openArBtn = document.getElementById('openArBtn');
     const openArBtnModal = document.getElementById('openArBtnModal');
 
-    resetViewBtn.addEventListener('click', () => {
-      viewer.cameraOrbit = '0deg 78deg 105%';
-      viewer.fieldOfView = '28deg';
-    });
+    const DEFAULT_CAMERA_ORBIT = '0deg 78deg 105%';
+    const DEFAULT_FOV = '28deg';
+
+    function resetView() {
+      viewer.cameraOrbit = DEFAULT_CAMERA_ORBIT;
+      viewer.fieldOfView = DEFAULT_FOV;
+      viewer.autoRotate = true;
+    }
+
+    resetViewBtn.addEventListener('click', resetView);
 
     infoBtn.addEventListener('click', () => {
       modalOverlay.classList.add('show');
     });
 
-    closeInfoBtn.addEventListener('click', () => {
+    function closeModal() {
       modalOverlay.classList.remove('show');
-    });
+    }
 
-    closeInfoBtnMobile.addEventListener('click', () => {
-      modalOverlay.classList.remove('show');
-    });
+    closeInfoBtn.addEventListener('click', closeModal);
+    closeInfoBtnMobile.addEventListener('click', closeModal);
 
     modalOverlay.addEventListener('click', (event) => {
       if (event.target === modalOverlay) {
-        modalOverlay.classList.remove('show');
+        closeModal();
       }
     });
+
+    viewer.addEventListener('pointerdown', () => {
+      viewer.autoRotate = false;
+    });
+
+    async function updateArButtonState() {
+      try {
+        const canActivateAR = await viewer.canActivateAR;
+        openArBtn.disabled = !canActivateAR;
+        openArBtnModal.disabled = !canActivateAR;
+      } catch (error) {
+        openArBtn.disabled = false;
+        openArBtnModal.disabled = false;
+      }
+    }
 
     async function openAR() {
       try {
         await viewer.activateAR();
       } catch (error) {
-        alert('Не удалось открыть AR на этом устройстве или в этом режиме.');
+        alert('Не удалось открыть AR на этом устройстве или в этом браузере.');
         console.error(error);
       }
     }
 
     openArBtn.addEventListener('click', openAR);
     openArBtnModal.addEventListener('click', openAR);
+
+    viewer.addEventListener('load', updateArButtonState);
+    window.addEventListener('DOMContentLoaded', updateArButtonState);
   </script>
 </body>
 </html>
